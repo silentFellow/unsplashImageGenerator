@@ -56,17 +56,17 @@ const Login = ({active}) => {
 
         <div className="flex justify-center w-[63%] items-center text-[30px] font-black my-2 font-fonty tracking-widest text-dark">OR</div>
 
-        <div className="flex justify-center items-center bg-darkBg2 text-[#121820] w-[27%] h-[33px] rounded-full space-x-2 my-1">
+        <div className="flex justify-center items-center bg-darkBg2 text-[#121820] w-[27%] h-[33px] rounded-full space-x-2 my-1 hover:opacity-90">
           <FcGoogle className='h-[18px] w-[18px]' />
           <a className="font-fonty text-light cursor-pointer">SIGN WITH GOOGLE</a>
         </div>
 
-        <div className="flex justify-center items-center bg-darkBg2 text-[#121820] w-[27%] h-[33px] rounded-full space-x-2 my-1">
+        <div className="flex justify-center items-center bg-darkBg2 text-[#121820] w-[27%] h-[33px] rounded-full space-x-2 my-1 hover:opacity-90">
           <FaGithub className='h-[18px] w-[18px] text-light' />
           <a className="font-fonty text-light cursor-pointer">SIGN WITH GITHUB</a>
         </div>
 
-        <div className="flex justify-center items-center bg-darkBg2 text-[#121820] w-[27%] h-[33px] rounded-full space-x-2 my-1">
+        <div className="flex justify-center items-center bg-darkBg2 text-[#121820] w-[27%] h-[33px] rounded-full space-x-2 my-1 hover:opacity-90">
           <GrFacebook className='h-[18px] w-[18px] text-light' />
           <a className="font-fonty text-light cursor-pointer">SIGN WITH FACEBOOK</a>
         </div>
