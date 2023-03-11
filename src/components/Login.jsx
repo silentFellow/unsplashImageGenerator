@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
 import { GrFacebook } from 'react-icons/gr'
+import { AiFillLock, AiFillUnlock } from 'react-icons/ai'
 
 const Login = ({active}) => {
 
   const [show, setShow] = useState(false)
+  const [check, setCheck] = useState(false)
 
   return (
     <div className="flex justify-center items-center h-[80%]">
@@ -15,13 +17,16 @@ const Login = ({active}) => {
           <input type="text" minLength={'12'} className='border-2 border-ascent bg-light text-dark font-black px-3 py-2 my-4 rounded-[30px] w-full' placeholder='ENTER EMAIL HERE' required />
         </div>
 
-        <div className="pass text-dark w-[63%] flex">
+        <div className="pass text-dark w-[63%] flex relative">
           <input type={`${show ? 'text' : 'password'}`} minLength={'9'} className='border-2 border-ascent bg-light text-dark font-black px-3 py-2 my-4 rounded-[30px] w-full' placeholder='ENTER PASSWORD HERE' required />
+          <span className="absolute left-[90%] top-[33%] text-[24px] text-dark" onClick={() => setShow(!show)}>
+            {show ? <AiFillLock /> : <AiFillUnlock />}
+          </span>
         </div>
 
         <div className="check flex justify-start w-[63%] items-center">
-          <input type="checkbox" className='h-[18px] w-[18px] mx-3' />
-          <label htmlFor="check" className='text-ascent text-[24px] font-fonty'>Accept terms and conditions</label>
+          <input type="checkbox" className='h-[18px] w-[18px] mx-3' checked={check} />
+          <label htmlFor="check" className='text-ascent text-[24px] font-fonty cursor-pointer' onClick={() => setCheck(!check)}>Accept terms and conditions</label>
         </div>
 
         <div className="flex justify-between items-center w-[36%] space-x-12 mt-3">
@@ -36,12 +41,18 @@ const Login = ({active}) => {
           <input type="text" minLength={'12'} className='border-2 border-ascent bg-light text-dark font-black px-3 py-2 my-4 rounded-[30px] w-full' placeholder='ENTER EMAIL HERE' required />
         </div>
 
-        <div className="pass text-dark w-[63%] flex">
+        <div className="pass text-dark w-[63%] flex relative">
           <input type={`${show ? 'text' : 'password'}`} minLength={'9'} className='border-2 border-ascent bg-light text-dark font-black px-3 py-2 my-4 rounded-[30px] w-full' placeholder='ENTER PASSWORD HERE' required />
+          <span className="absolute left-[90%] top-[33%] text-[24px] text-dark" onClick={() => setShow(!show)}>
+            {show ? <AiFillLock /> : <AiFillUnlock />}
+          </span>
         </div>
 
-        <div className="pass text-dark w-[63%] flex">
-          <input type={`${show ? 'text' : 'password'}`} minLength={'9'} className='border-2 border-ascent bg-light text-dark font-black px-3 py-2 my-4 rounded-[30px] w-full' placeholder='ENTER CONFIRM PASSWORD HERE' required />
+        <div className="cPass text-dark w-[63%] flex relative">
+          <input type={`${show ? 'text' : 'password'}`} minLength={'9'} className='border-2 border-ascent bg-light text-dark font-black px-3 py-2 my-4 rounded-[30px] w-full relative' placeholder='ENTER CONFIRM PASSWORD HERE' required />
+          <span className="absolute left-[90%] top-[33%] text-[24px] text-dark" onClick={() => setShow(!show)}>
+            {show ? <AiFillLock /> : <AiFillUnlock />}
+          </span>
         </div>
 
         <div className="check flex justify-start w-[63%] items-center">
