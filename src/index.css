@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Passion+One&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+label {
+  font-family: 'Passion One', cursive;
+}
