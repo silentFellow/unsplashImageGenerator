@@ -56,8 +56,8 @@ const Login = ({active}) => {
         </div>
 
         <div className="check flex justify-start w-[63%] items-center">
-          <input type="checkbox" className='h-[18px] w-[18px] mx-3' />
-          <label htmlFor="check" className='text-ascent text-[24px] font-fonty'>Accept terms and conditions</label>
+          <input type="checkbox" className='h-[18px] w-[18px] mx-3' checked={check} />
+          <label htmlFor="check" className='text-ascent text-[24px] font-fonty cursor-pointer' onClick={() => setCheck(!check)}>Accept terms and conditions</label>
         </div>
 
         <div className="flex justify-between items-center w-[36%] space-x-12 mt-3">
