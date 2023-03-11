@@ -10,3 +10,6 @@ const app = firebase.iniializeApp({
   appId: process.env.fireBaseAppId,
   measurementId: process.env.fireBaseMeasurementId,
 })
+
+export const auth = app.auth()
+export default app
