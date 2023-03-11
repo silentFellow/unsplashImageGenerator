@@ -14,6 +14,9 @@ module.exports = {
         'darkBg': '#8d99ae',
         'darkBg2': '#2b2d42',
       },
+      fontFamily: {
+        'fonty': ['Passion One', 'cursive'],
+      }
     },
   },
   plugins: [],

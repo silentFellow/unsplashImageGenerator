@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
-const Nav = () => {
-  const [active, setActive] = useState('in')
+const Nav = ({setActive, active}) => {
 
   return (
     <>
