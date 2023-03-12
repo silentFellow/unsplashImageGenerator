@@ -4,9 +4,13 @@ import { FaGithub } from 'react-icons/fa'
 import { GrFacebook } from 'react-icons/gr'
 import { AiFillLock, AiFillUnlock } from 'react-icons/ai'
 
+import { auth, google } from '../fireBase.js'
+import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
+
 const Login = ({active}) => {
 
   const [show, setShow] = useState(false)
+  const [cShow, setCShow] = useState(false)
   const [check, setCheck] = useState(false)
   const [error, setError] = useState(false)
 
@@ -16,12 +20,51 @@ const Login = ({active}) => {
   const signInEmail = useRef();
   const signInPass = useRef();
 
+  const reset = () => {
+    signUpEmail.current.value = ''
+    signUpPass.current.value = ''
+    signUpCPass.current.value = ''
+    setCheck(false)
+    signInEmail.current.value = ''
+    signInPass.current.value = ''
+  }
+
+  const signUp = async () => {
+    if(signUpPass.current.value != signUpCPass.current.value) {
+      setError("Password And Confirm Password Does Not Match")
+    }
+    else if(check == 0) {
+      setError("Please Accept Terms And Conditions")
+    }
+    else {
+      setError('')
+      try {
+        await createUserWithEmailAndPassword(auth, signUpEmail.current.value, signUpPass.current.value)
+      }
+      catch {
+        setError('ENTER VALID EMAIL AND PASSWORD...')
+      }
+    }
+  }
+
+  const signGoogle = async () => {
+      setError('')
+      try {
+        await signInWithPopup(auth, google)
+      }
+      catch {
+        setError('CANNOT LOGIN, TRY AGAIN LATER...')
+      }
+  }
+
   return (
 
     <div className="flex justify-center items-center h-[80%]">
       <div className={`${active == 'in' ? "mb-[60px] flex flex-col justify-center items-center rounded-[30px]  h-[600px] w-1/2 bg-whiteSmoke shadow-2xl" : 'hidden'}`}>
 
-        <div className={`${error == '' ? 'hidden' : "bg-ascent text-[#121820] w-[63%] h-[6%] rounded-md"}`}>{error}</div>
+        <div className={`${error == '' ? 'hidden' : "flex justify-center items-center bg-ascent text-[#121820] w-[63%] h-[6%] rounded-md font-black tracking-wider"}`}>
+          {error}
+        </div>
         
         <div className="mail text-dark w-[63%]">
           <input type="text" minLength={'12'} className='border-2 border-ascent bg-light text-dark font-black px-3 py-2 my-4 rounded-[30px] w-full' placeholder='ENTER EMAIL HERE' required ref={signInEmail} />
@@ -40,8 +83,12 @@ const Login = ({active}) => {
         </div>
 
         <div className="flex justify-between items-center w-[36%] space-x-12 mt-3">
-          <button className="bg-dark text-light rounded-xl h-[36px] w-[90px] hover:bg-ascent hover:text-dark hover:font-black">SUBMIT</button>
-          <button className="bg-dark text-light rounded-xl h-[36px] w-[90px] hover:bg-ascent hover:text-dark hover:font-black">RESET</button>
+          <button className="bg-dark text-light rounded-xl h-[36px] w-[90px] hover:bg-ascent hover:text-dark hover:font-black">SIGN IN</button>
+          <button className="bg-dark text-light rounded-xl h-[36px] w-[90px] hover:bg-ascent hover:text-dark hover:font-black"
+            onClick={() => reset()}
+          >
+            RESET
+          </button>
         </div>
       </div>
 
@@ -51,7 +98,7 @@ const Login = ({active}) => {
 
       <div className={`${active == 'up' ? "mb-[60px] flex flex-col justify-center items-center rounded-[30px]  h-[600px] w-1/2 bg-whiteSmoke shadow-2xl" : 'hidden'}`}>
 
-      <div className={`${error == '' ? 'hidden' : "bg-ascent text-[#121820] w-[63%] h-[6%] rounded-md"}`}>{error}</div>
+      <div className={`${error == '' ? 'hidden' : "flex justify-center items-center bg-ascent text-[#121820] w-[63%] h-[6%] rounded-md font-black tracking-wider"}`}>{error}</div>
         
         <div className="mail text-dark w-[63%]">
           <input type="text" minLength={'12'} className='border-2 border-ascent bg-light text-dark font-black px-3 py-2 my-4 rounded-[30px] w-full' placeholder='ENTER EMAIL HERE' required ref={signUpEmail} />
@@ -65,8 +112,8 @@ const Login = ({active}) => {
         </div>
 
         <div className="cPass text-dark w-[63%] flex relative">
-          <input type={`${show ? 'text' : 'password'}`} minLength={'9'} className='border-2 border-ascent bg-light text-dark font-black px-3 py-2 my-4 rounded-[30px] w-full relative' placeholder='ENTER CONFIRM PASSWORD HERE' required ref={signUpCPass} />
-          <span className="absolute left-[90%] top-[33%] text-[24px] text-dark" onClick={() => setShow(!show)}>
+          <input type={`${cShow ? 'text' : 'password'}`} minLength={'9'} className='border-2 border-ascent bg-light text-dark font-black px-3 py-2 my-4 rounded-[30px] w-full relative' placeholder='ENTER CONFIRM PASSWORD HERE' required ref={signUpCPass} />
+          <span className="absolute left-[90%] top-[33%] text-[24px] text-dark" onClick={() => setCShow(!cShow)}>
             {show ? <AiFillLock /> : <AiFillUnlock />}
           </span>
         </div>
@@ -77,13 +124,22 @@ const Login = ({active}) => {
         </div>
 
         <div className="flex justify-between items-center w-[36%] space-x-12 mt-3">
-          <button className="bg-dark text-light rounded-xl h-[36px] w-[90px] hover:bg-ascent hover:text-dark hover:font-black">SUBMIT</button>
-          <button className="bg-dark text-light rounded-xl h-[36px] w-[90px] hover:bg-ascent hover:text-dark hover:font-black">RESET</button>
+          <button className="bg-dark text-light rounded-xl h-[36px] w-[90px] hover:bg-ascent hover:text-dark hover:font-black"
+            onClick={() => signUp()}>
+            SIGN UP
+          </button>
+          <button className="bg-dark text-light rounded-xl h-[36px] w-[90px] hover:bg-ascent hover:text-dark hover:font-black"
+            onClick={() => reset()}
+          >
+            RESET
+          </button>
         </div>
 
         <div className="flex justify-center w-[63%] items-center text-[30px] font-black my-2 font-fonty tracking-widest text-dark">OR</div>
 
-        <div className="flex justify-center items-center bg-darkBg2 text-[#121820] w-[27%] h-[33px] rounded-full space-x-2 my-1 hover:opacity-90">
+        <div className="flex justify-center items-center bg-darkBg2 text-[#121820] w-[27%] h-[33px] rounded-full space-x-2 my-1 hover:opacity-90"
+          onClick={() => signGoogle()}
+        >
           <FcGoogle className='h-[18px] w-[18px]' />
           <a className="font-fonty text-light cursor-pointer">SIGN WITH GOOGLE</a>
         </div>
@@ -101,10 +157,6 @@ const Login = ({active}) => {
       </div>
     </div>
   )
-}
-
-const states = () => {
-
 }
 
 export default Login

@@ -7,10 +7,10 @@ const App = () => {
   const [active, setActive] = useState('in')
 
   return (
-    <div className="h-screen bg-light flex flex-col">
-      <Nav active={active} setActive={setActive} />
-      <Login active={active} />
-    </div>
+      <div className="h-screen bg-light flex flex-col">
+        <Nav active={active} setActive={setActive} />
+        <Login active={active} />
+      </div>
   )
 }
 

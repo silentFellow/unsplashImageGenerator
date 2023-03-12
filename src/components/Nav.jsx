@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import reset from './Login'
 
 const Nav = ({setActive, active}) => {
 
