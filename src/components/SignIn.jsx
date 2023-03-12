@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { AiFillLock, AiFillUnlock } from 'react-icons/ai'
+import { FiPhone } from 'react-icons/fi'
 import { auth, google } from '../fireBase.js'
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 
@@ -10,6 +11,7 @@ const SignIn = () => {
   const [error, setError] = useState(false)
   const signInEmail = useRef();
   const signInPass = useRef();
+  const phone = useRef();
 
   const reset = () => {
     setCheck(false)
@@ -49,7 +51,25 @@ const SignIn = () => {
             RESET
           </button>
         </div>
+
+        <div className="flex justify-center w-[63%] items-center text-[30px] font-black my-2 font-fonty tracking-widest text-dark">OR</div>
+
+        <div className="phone flex justify-center items-center w-[63%] relative">
+          <input type="tel" 
+            className='border-2 border-ascent bg-light text-dark font-black px-3 py-2 my-4 rounded-[30px] w-full'
+            placeholder='VERIFY WITH PHONE'
+          />
+          <FiPhone className='absolute top-[50%] left-[90%] translate-y-[-50%]'/>
         </div>
+
+        <div className="flex justify-center items-center w-[36%] mt-3" ref={phone}>
+          <button className="bg-dark text-light rounded-xl h-[36px] w-[90px] hover:bg-ascent hover:text-dark hover:font-black"
+            onClick={() => phoneSignIn()}
+          >
+            VERIFY
+          </button>
+        </div>
+      </div>
     </div>
   )
 }

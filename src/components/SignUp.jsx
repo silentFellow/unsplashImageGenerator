@@ -36,6 +36,8 @@ const SignUp = () => {
       setError('')
       try {
         await createUserWithEmailAndPassword(auth, signUpEmail.current.value, signUpPass.current.value)
+        setError('SIGN-UP SUCCESSFUL')
+        reset()
       }
       catch {
         setError('ENTER VALID EMAIL AND PASSWORD...')
@@ -47,6 +49,8 @@ const SignUp = () => {
       setError('')
       try {
         await signInWithPopup(auth, google)
+        setError('SIGN-UP SUCCESSFUL')
+        reset()
       }
       catch {
         setError('CANNOT LOGIN, TRY AGAIN LATER...')
@@ -119,4 +123,4 @@ const SignUp = () => {
   )
 }
 
-export default Login
+export default SignUp
