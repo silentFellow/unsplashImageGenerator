@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 import reset from './SignUp'
 import { Link } from 'react-router-dom'
 
-const Nav = ({active, setActive}) => {
+const Nav = () => {
+
+  const [active, setActive] = useState('in')
+
   return (
     <>
       <div className="mt-[-30px] mx-[81px] flex items-center justify-between h-1/5">
@@ -19,7 +22,7 @@ const Nav = ({active, setActive}) => {
           }}>
             SIGN UP
           </Link>
-          <Link to="/" className={`${active == 'in' ? 'border-b-2 border-ascent' : 'border-b-0'} text-dark font-black text-[18px] hover:opacity-[70%]`} onClick={() => {
+          <Link to="/signIn" className={`${active == 'in' ? 'border-b-2 border-ascent' : 'border-b-0'} text-dark font-black text-[18px] hover:opacity-[70%]`} onClick={() => {
             setActive('in');
           }}>
             SIGN IN
