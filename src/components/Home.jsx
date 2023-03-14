@@ -9,7 +9,7 @@ const Home = () => {
   const [profile, setProfile] = useState(false)
 
   return (
-    <div className="h-screen bg-light">
+    <div className="bg-light">
       <div className="h-[15%] mt-[30px] mx-[9%] mob:[12%] flex justify-between items-center text-dark relative">
         <img 
           src={logoDark} 

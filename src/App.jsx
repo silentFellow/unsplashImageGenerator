@@ -3,6 +3,7 @@ import Nav from './components/Nav'
 import SignUp from './components/SignUp'
 import SignIn from './components/SignIn'
 import Home from './components/Home'
+import Hero from './components/Hero'
 
 import AuthProvider from './contexts/authContext'
 
@@ -21,6 +22,7 @@ const App = () => {
             <Route path='/signUp' element={<Nav />} />
           </Routes>
           <Routes>
+            <Route path='/' element={<Hero />} />
             <Route path='/signIn' element={<SignIn />} />
             <Route path='/signUp' element={<SignUp />} />
           </Routes>
