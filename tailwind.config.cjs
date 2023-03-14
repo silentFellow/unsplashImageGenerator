@@ -16,6 +16,9 @@ module.exports = {
       },
       fontFamily: {
         'fonty': ['Passion One', 'cursive'],
+      },
+      screens: {
+        'mob': '480px',
       }
     },
   },
