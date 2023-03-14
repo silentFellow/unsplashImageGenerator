@@ -4,19 +4,25 @@ import { FaGithub } from 'react-icons/fa'
 import { GrFacebook } from 'react-icons/gr'
 import { AiFillLock, AiFillUnlock } from 'react-icons/ai'
 
-import { auth, google } from '../fireBase.js'
-import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
+import { useAuth } from '../contexts/authContext'
+
+import { Link, useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
 
   const [show, setShow] = useState(false)
   const [cShow, setCShow] = useState(false)
   const [check, setCheck] = useState(false)
-  const [error, setError] = useState(false)
+  const [message, setMessage] = useState(false)
 
   const signUpEmail = useRef();
   const signUpPass = useRef();
   const signUpCPass = useRef();
+
+  const { signUpWithEmail } = useAuth()
+  const { googleSignIn } = useAuth()
+
+  const navigate = useNavigate()
 
   const reset = () => {
     signUpEmail.current.value = ''
@@ -27,33 +33,35 @@ const SignUp = () => {
 
   const signUp = async () => {
     if(signUpPass.current.value != signUpCPass.current.value) {
-      setError("Password And Confirm Password Does Not Match")
+      setMessage("Password And Confirm Password Does Not Match")
     }
     else if(check == 0) {
-      setError("Please Accept Terms And Conditions")
+      setMessage("Please Accept Terms And Conditions")
     }
     else {
-      setError('')
+      setMessage('')
       try {
-        await createUserWithEmailAndPassword(auth, signUpEmail.current.value, signUpPass.current.value)
-        setError('SIGN-UP SUCCESSFUL')
+        await signUpWithEmail(signUpEmail.current.value, signUpPass.current.value)
+        setMessage('SIGN-UP SUCCESSFUL')
         reset()
+        navigate('/signIn')
       }
       catch {
-        setError('ENTER VALID EMAIL AND PASSWORD...')
+        setMessage('ENTER VALID EMAIL AND PASSWORD...')
       }
     }
   }
 
   const signGoogle = async () => {
-      setError('')
+      setMessage('')
       try {
-        await signInWithPopup(auth, google)
-        setError('SIGN-UP SUCCESSFUL')
+        await googleSignIn()
+        setMessage('SIGN-UP SUCCESSFUL')
         reset()
+        navigate('/')
       }
       catch {
-        setError('CANNOT LOGIN, TRY AGAIN LATER...')
+        setMessage('CANNOT LOGIN, TRY AGAIN LATER...')
       }
   }
 
@@ -62,7 +70,7 @@ const SignUp = () => {
     <div className="flex justify-center items-center h-[80%]">
       <div className="h-full flex flex-col justify-center items-center rounded-[30px] md:w-1/2 bg-whiteSmoke shadow-2xl w-[90%] mob:w-[80%] lg:w-[60%] mb-[9%]">
 
-      <div className={`${error == '' ? 'hidden' : "flex justify-center items-center bg-ascent text-[#121820] rounded-md font-black tracking-wider w-[81%] mob:w-[72%] lg:w-[63%] h-[6%] text-[12px] mob:text-[14px] sm:text-[18px]"}`}>{error}</div>
+      <div className={`${message == '' ? 'hidden' : "flex justify-center items-center bg-ascent text-[#121820] rounded-md font-black tracking-wider w-[81%] mob:w-[72%] lg:w-[63%] h-[6%] text-[12px] mob:text-[14px] sm:text-[18px]"}`}>{message}</div>
         
         <div className="mail text-dark w-[81%] mob:w-[72%] lg:w-[63%]">
           <input type="text" minLength={'12'} className='border-2 border-ascent bg-light text-dark font-black px-3 py-2 my-4 rounded-[30px] w-full placeholder:text-[12px] placeholder:text-ascent' placeholder='ENTER EMAIL HERE' required ref={signUpEmail} />
@@ -77,7 +85,7 @@ const SignUp = () => {
 
         <div className="cPass text-dark flex relative w-[81%] mob:w-[72%] lg:w-[63%]">
           <input type={`${cShow ? 'text' : 'password'}`} minLength={'9'} className='border-2 border-ascent bg-light text-dark font-black px-3 py-2 my-4 rounded-[30px] w-full relative placeholder:text-[12px] placeholder:text-ascent' placeholder='ENTER CONFIRM PASSWORD' required ref={signUpCPass} />
-          <span className="absolute left-[85%] md:left-[90%]~ top-[33%] text-[24px] text-dark" onClick={() => setCShow(!cShow)}>
+          <span className="absolute left-[85%] md:left-[90%] top-[33%] text-[24px] text-dark" onClick={() => setCShow(!cShow)}>
             {show ? <AiFillLock /> : <AiFillUnlock />}
           </span>
         </div>

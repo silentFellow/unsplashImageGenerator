@@ -1,17 +1,23 @@
 import React, { useState, useRef } from 'react'
 import { AiFillLock, AiFillUnlock } from 'react-icons/ai'
 import { FiPhone } from 'react-icons/fi'
-import { auth, google } from '../fireBase.js'
-import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
+
+import { useAuth } from '../contexts/authContext'
+
+import { Link, useNavigate } from 'react-router-dom'
 
 const SignIn = () => {
 
   const [show, setShow] = useState(false)
   const [check, setCheck] = useState(false)
-  const [error, setError] = useState(false)
+  const [message, setMessage] = useState(false)
   const signInEmail = useRef();
   const signInPass = useRef();
   const phone = useRef();
+
+  const navigate = useNavigate()
+
+  const { login } = useAuth()
 
   const reset = () => {
     setCheck(false)
@@ -19,12 +25,25 @@ const SignIn = () => {
     signInPass.current.value = ''
   }
 
+  const log = async () => {
+    try {
+      await login(signInEmail.current.value, signInPass.current.value);
+      setMessage('Login Successful');
+      navigate('/')
+      reset()
+    }
+    catch {
+      setMessage('Account Does Not Exists');
+      reset()
+    }
+  }
+
   return (
     <div className="flex justify-center items-center h-[80%]">
       <div className="flex flex-col justify-center items-center rounded-[30px] h-full md:w-1/2 bg-whiteSmoke shadow-2xl w-[90%] mob:w-[80%] lg:w-[60%] mb-[9%]">
 
-        <div className={`${error == '' ? 'hidden' : "flex justify-center items-center bg-ascent text-[#121820] w-[81%] mob:w-[72%] lg:w-[63%] h-[6%] rounded-md font-black tracking-wider"}`}>
-          {error}
+        <div className={`${message == '' ? 'hidden' : "flex justify-center items-center bg-ascent text-[#121820] w-[81%] mob:w-[72%] lg:w-[63%] h-[6%] rounded-md font-black tracking-wider"}`}>
+          {message}
         </div>
 
         <div className="mail text-dark w-[81%] mob:w-[72%] lg:w-[63%]">
@@ -44,7 +63,11 @@ const SignIn = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row justify-between items-center w-[39%] md:w-[36%] sm:space-x-12 mt-3">
-          <button className="bg-dark text-light rounded-xl h-[30px] w-[90%] mb-[6px] sm:w-[63px] text-[15px] lg:h-[36px] lg:w-[90px] md:hover:bg-ascent md:hover:text-dark md:hover:font-black">SIGN IN</button>
+          <button className="bg-dark text-light rounded-xl h-[30px] w-[90%] mb-[6px] sm:w-[63px] text-[15px] lg:h-[36px] lg:w-[90px] md:hover:bg-ascent md:hover:text-dark md:hover:font-black" 
+            onClick={() => log()}
+          >
+            SIGN IN
+          </button>
           <button className="bg-dark text-light rounded-xl h-[30px] w-[90%] sm:w-[63px] text-[15px] lg:h-[36px] lg:w-[90px] md:hover:bg-ascent md:hover:text-dark md:hover:font-black"
             onClick={() => reset()}
           >

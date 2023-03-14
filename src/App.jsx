@@ -4,35 +4,29 @@ import SignUp from './components/SignUp'
 import SignIn from './components/SignIn'
 import Home from './components/Home'
 
+import AuthProvider from './contexts/authContext'
+
 import { BrowserRouter } from 'react-router-dom'
 import { Routes, Route } from 'react-router-dom'
 
 const App = () => {
 
   return (
-    <BrowserRouter>
-      <div className="h-screen bg-light flex flex-col">
-        <Routes>
-          <Route path='/' element={<Home />}/>
-        </Routes>
-        <Routes>
-          <Route path='/signIn' element={
-            <>
-              <Nav />
-              <SignIn />
-            </>
-          }/>
-        </Routes>
-        <Routes>
-          <Route path='/signUp' element={
-            <>
-              <Nav />
-              <SignUp />
-            </>
-          }/>
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <div className="h-screen bg-light flex flex-col">
+          <Routes>
+            <Route exact path='/' element={<Home />} />
+            <Route path='/signIn' element={<Nav />} />
+            <Route path='/signUp' element={<Nav />} />
+          </Routes>
+          <Routes>
+            <Route path='/signIn' element={<SignIn />} />
+            <Route path='/signUp' element={<SignUp />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </AuthProvider>
   )
 }
 
