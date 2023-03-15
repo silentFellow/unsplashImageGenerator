@@ -9,6 +9,7 @@ const Hero = () => {
 
   const [toggle, setToggle] = useState(false);
   const [active, setActive] = useState('1');
+  const [search, setSearch] = useState('');
 
   return (
     <div className="flex flex-col mx-[2%] sm:mx-[3%] md:mx-[4%] mt-[-21%] sm:mt-[-19%] md:mt-[-12%] lg:mt-[-8%] py-5 px-3 md:px-4 lg:px-9 bg-dark text-light rounded-xl">
@@ -30,7 +31,7 @@ const Hero = () => {
           </button>
         </div>
         <div className={`${toggle ? 'hidden' : "flex justify-center items-center w-[72%] md:w-[36%] lg:w-[30%] relative"}`}>
-          <input type="search" placeholder='Look Out...' className='h-[27px] w-full rounded-full placeholder:text-ascent placeholder:p-4 placeholder:font-black' />
+          <input type="search" placeholder='Look Out...' className='h-[27px] w-full rounded-full text-dark p-4 font-bold tracking-[2px] placeholder:text-ascent' />
           <span className="absolute right-[4%]">
             <AiOutlineSearch className='text-ascent h-[27px] w-[27px] cursor-pointer'/>
           </span>
