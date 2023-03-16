@@ -1,9 +1,13 @@
 import React from 'react'
 
-const Cards = () => {
+const Cards = (props) => {
   return (
-    <div className="flex flex-col justify-center items-center bg-light text-dark rounded-[24px] lg:hover:opacity-70 hover:shadow-lg hover:shadow-ascent h-[450px] w-[90%] mob:h-[300px] mob:w-[40%] md:h-[270px] md:w-[30%] lg:h-[240px] lg:w-[20%] xl:h[210px] xl:w-[15%]">
-      hello
+    <div className="w-full flex flex-col justify-center items-center bg-light text-dark rounded-[24px] lg:hover:opacity-70 hover:shadow-lg hover:shadow-ascent h-[450px] mob:h-[400px] sm:h-[360px] md:h-[350px] lg:h-[330px]">
+      <img 
+        src={props.src} 
+        alt="image is missing" 
+        className='h-full w-full'
+      />
     </div>
   )
 }
