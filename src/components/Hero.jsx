@@ -13,8 +13,8 @@ const Hero = () => {
   const [search, setSearch] = useState('nature');
   const [image, setImage] = useState([]);
 
-  const initialUrl = `https://api.unsplash.com/photos/random/?&count=30&client_id=3uKyOEpV85MVB2RTKwftGnSWSb6jPmgtkRNL25g1H2E`
-  const url = `https://api.unsplash.com/search/photos?page=1&query=${search}&client_id=3uKyOEpV85MVB2RTKwftGnSWSb6jPmgtkRNL25g1H2E`
+  const initialUrl = `https://api.unsplash.com/photos/random/?&count=30&client_id=${import.meta.env.VITE_UNSPLASH_API_KEY}`
+  const url = `https://api.unsplash.com/search/photos?page=1&query=${search}&client_id=${import.meta.env.VITE_UNSPLASH_API_KEY}`
 
   useEffect(() => {
     const refresh = async () => {
