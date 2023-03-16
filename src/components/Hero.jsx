@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Cards from './Cards'
 
@@ -13,7 +13,23 @@ const Hero = () => {
   const [search, setSearch] = useState('nature');
   const [image, setImage] = useState([]);
 
+  const initialUrl = `https://api.unsplash.com/photos/random/?&count=30&client_id=3uKyOEpV85MVB2RTKwftGnSWSb6jPmgtkRNL25g1H2E`
   const url = `https://api.unsplash.com/search/photos?page=1&query=${search}&client_id=3uKyOEpV85MVB2RTKwftGnSWSb6jPmgtkRNL25g1H2E`
+
+  useEffect(() => {
+    const refresh = async () => {
+      try {
+        await axios.get(initialUrl)
+           .then((res) => {
+             setImage(res.data)
+         })
+       }
+       catch(error) {
+         console.log(error)
+       }
+    }
+    refresh()
+  },[])
 
   const data = async () => {
     try {
@@ -66,8 +82,8 @@ const Hero = () => {
           </button>
         </div>
       </div>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-[9%] sm:mt-[3%] gap-[27px]'>
-        {image.map((mp) => <Cards src={mp.urls.small} />)}
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-[9%] sm:mt-[3%] gap-[27px]'>
+        {image.map((mp) => <Cards src={mp.urls.full} />)}
       </div>
     </div>
   )
