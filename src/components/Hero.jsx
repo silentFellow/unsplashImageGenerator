@@ -32,6 +32,7 @@ const Hero = () => {
   },[])
 
   const data = async () => {
+    setImage([]);
     try {
       await axios.get(url)
         .then((res) => {
